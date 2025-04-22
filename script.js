@@ -5,7 +5,7 @@ const ctx = canvas.getContext('2d');
 async function setupCamera() {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: "environment" }  // 후면 카메라 사용
+      video: { facingMode: { ideal: "environment" } }  // 후면 카메라 요청
     });
     video.srcObject = stream;
     return new Promise(resolve => {
@@ -16,7 +16,6 @@ async function setupCamera() {
     console.error("카메라 오류:", err);
   }
 }
-
 
 async function detectFrame(model) {
   canvas.width = video.videoWidth;
