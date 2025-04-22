@@ -3,13 +3,20 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 async function setupCamera() {
-  const stream = await navigator.mediaDevices.getUserMedia({video: {facingMode: { exact: "environment" } } });
-
-  video.srcObject = stream;
-  return new Promise(resolve => {
-    video.onloadedmetadata = () => resolve(video);
-  });
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "environment" }  // 후면 카메라 사용
+    });
+    video.srcObject = stream;
+    return new Promise(resolve => {
+      video.onloadedmetadata = () => resolve(video);
+    });
+  } catch (err) {
+    alert("카메라 접근 오류: " + err.name + "\n" + err.message);
+    console.error("카메라 오류:", err);
+  }
 }
+
 
 async function detectFrame(model) {
   canvas.width = video.videoWidth;
