@@ -1,0 +1,8 @@
+body { text-align: center; }
+video, canvas {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 100%;
+}
